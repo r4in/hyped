@@ -1,0 +1,392 @@
+{
+  "/wardrobe/585-119.png": {
+    "width": 394,
+    "height": 394,
+    "bounds": [
+      38,
+      9,
+      318,
+      374
+    ]
+  },
+  "/wardrobe/585-160.png": {
+    "width": 416,
+    "height": 416,
+    "bounds": [
+      22,
+      20,
+      372,
+      375
+    ]
+  },
+  "/wardrobe/585-193.png": {
+    "width": 436,
+    "height": 436,
+    "bounds": [
+      0,
+      39,
+      432,
+      367
+    ]
+  },
+  "/wardrobe/585-208.png": {
+    "width": 416,
+    "height": 416,
+    "bounds": [
+      4,
+      28,
+      411,
+      367
+    ]
+  },
+  "/wardrobe/587-227.png": {
+    "width": 384,
+    "height": 189,
+    "bounds": [
+      9,
+      38,
+      366,
+      138
+    ]
+  },
+  "/wardrobe/587-231.png": {
+    "width": 384,
+    "height": 159,
+    "bounds": [
+      25,
+      19,
+      334,
+      126
+    ]
+  },
+  "/wardrobe/588-265.png": {
+    "width": 368,
+    "height": 158,
+    "bounds": [
+      16,
+      19,
+      340,
+      126
+    ]
+  },
+  "/wardrobe/588-284.png": {
+    "width": 329,
+    "height": 158,
+    "bounds": [
+      13,
+      2,
+      300,
+      140
+    ]
+  },
+  "/wardrobe/589-320.png": {
+    "width": 442,
+    "height": 442,
+    "bounds": [
+      18,
+      37,
+      404,
+      379
+    ]
+  },
+  "/wardrobe/591-349.png": {
+    "width": 368,
+    "height": 151,
+    "bounds": [
+      7,
+      7,
+      353,
+      134
+    ]
+  },
+  "/wardrobe/591-356.png": {
+    "width": 342,
+    "height": 192,
+    "bounds": [
+      11,
+      35,
+      311,
+      126
+    ]
+  },
+  "/wardrobe/591-366.png": {
+    "width": 368,
+    "height": 177,
+    "bounds": [
+      9,
+      26,
+      320,
+      129
+    ]
+  },
+  "/wardrobe/595-52.png": {
+    "width": 237,
+    "height": 463,
+    "bounds": [
+      23,
+      8,
+      193,
+      448
+    ]
+  },
+  "/wardrobe/595-53.png": {
+    "width": 208,
+    "height": 437,
+    "bounds": [
+      8,
+      12,
+      181,
+      415
+    ]
+  },
+  "/wardrobe/595-57.png": {
+    "width": 231,
+    "height": 415,
+    "bounds": [
+      16,
+      5,
+      200,
+      407
+    ]
+  },
+  "/wardrobe/601-61.png": {
+    "width": 416,
+    "height": 416,
+    "bounds": [
+      4,
+      28,
+      409,
+      356
+    ]
+  },
+  "/wardrobe/601-68.png": {
+    "width": 442,
+    "height": 442,
+    "bounds": [
+      4,
+      29,
+      435,
+      380
+    ]
+  },
+  "/wardrobe/602-105.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      39,
+      407,
+      397
+    ]
+  },
+  "/wardrobe/602-109.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      30,
+      36,
+      417,
+      408
+    ]
+  },
+  "/wardrobe/602-113.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      40,
+      407,
+      396
+    ]
+  },
+  "/wardrobe/602-117.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      38,
+      407,
+      398
+    ]
+  },
+  "/wardrobe/602-130.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      40,
+      407,
+      396
+    ]
+  },
+  "/wardrobe/602-143.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      37,
+      41,
+      403,
+      395
+    ]
+  },
+  "/wardrobe/602-151.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      39,
+      407,
+      397
+    ]
+  },
+  "/wardrobe/602-158.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      33,
+      39,
+      410,
+      398
+    ]
+  },
+  "/wardrobe/602-165.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      40,
+      407,
+      396
+    ]
+  },
+  "/wardrobe/602-178.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      34,
+      39,
+      409,
+      396
+    ]
+  },
+  "/wardrobe/602-75.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      37,
+      41,
+      404,
+      395
+    ]
+  },
+  "/wardrobe/602-82.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      36,
+      40,
+      406,
+      396
+    ]
+  },
+  "/wardrobe/602-92.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      33,
+      39,
+      412,
+      398
+    ]
+  },
+  "/wardrobe/603-182.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      39,
+      407,
+      397
+    ]
+  },
+  "/wardrobe/603-189.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      40,
+      407,
+      396
+    ]
+  },
+  "/wardrobe/603-196.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      15,
+      36,
+      447,
+      412
+    ]
+  },
+  "/wardrobe/603-200.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      35,
+      39,
+      407,
+      397
+    ]
+  },
+  "/wardrobe/603-204.png": {
+    "width": 480,
+    "height": 480,
+    "bounds": [
+      31,
+      40,
+      416,
+      396
+    ]
+  },
+  "/wardrobe/605-212.png": {
+    "width": 347,
+    "height": 347,
+    "bounds": [
+      9,
+      0,
+      338,
+      347
+    ]
+  },
+  "/wardrobe/605-220.png": {
+    "width": 472,
+    "height": 336,
+    "bounds": [
+      1,
+      0,
+      471,
+      336
+    ]
+  },
+  "/wardrobe/605-230.png": {
+    "width": 334,
+    "height": 231,
+    "bounds": [
+      11,
+      11,
+      313,
+      208
+    ]
+  },
+  "/wardrobe/605-261.png": {
+    "width": 288,
+    "height": 288,
+    "bounds": [
+      8,
+      53,
+      271,
+      179
+    ]
+  }
+}

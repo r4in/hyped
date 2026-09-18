@@ -1,5 +1,6 @@
 'use client';
 import { useEffect,useRef,useState } from 'react';
+import { Collage } from '@/components/outfit-collage';
 import { ArrowUpRight,ArrowRight,Shuffle,Heart,LockKeyhole,LockKeyholeOpen,Plus,Check,Wind,Droplets,Sun,MapPin,LocateFixed,SlidersHorizontal,CloudRain,Shirt,LoaderCircle,Trash2,Upload,ChevronRight,BookOpen } from 'lucide-react';
 import { Tabs,TabsList,TabsTrigger,TabsContent } from '@/components/ui/tabs';
 import { Dialog,DialogContent,DialogTitle,DialogDescription } from '@/components/ui/dialog';
@@ -13,7 +14,6 @@ const emptyState:State={items:initialItems,fits:[],preferences:defaultPreference
 async function api<T>(url:string,options?:RequestInit):Promise<T>{const r=await fetch(url,options);let data:unknown;try{data=await r.json();}catch{throw Error('The service did not respond. Please retry.');}if(!r.ok)throw Error((data as {error?:string}).error||'Something went wrong. Please retry.');return data as T;}
 function Picker({label,value,options,onChange}:{label:string;value:string;options:string[];onChange:(v:string)=>void}){return <div className="field"><label>{label}</label><Select value={value} onValueChange={onChange}><SelectTrigger aria-label={label} className="select-control"><SelectValue/></SelectTrigger><SelectContent>{options.map(v=><SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent></Select></div>}
 function Photo({item,className=''}:{item:Item;className?:string}){const [failed,setFailed]=useState(false);return failed?<div className={'photo-error '+className}><Shirt size={24}/><span>Photo unavailable</span></div>:<img className={className} src={item.image} alt={item.name} onError={()=>setFailed(true)} loading="lazy"/>}
-function Collage({items,small=false}:{items:Item[];small?:boolean}){return <div className={'collage '+(small?'mini':'')+(items.some(i=>slot(i)==='layer')?' layered':'')+(items.some(i=>slot(i)==='outerwear')?' outerwear':'')}>{items.map(i=><Photo key={i.id} item={i} className={'garment-'+slot(i)}/>)}</div>}
 function WeatherNumber({value,min,max,onChange}:{value:number;min:number;max:number;onChange:(n:number)=>void}){const [raw,setRaw]=useState(String(value));useEffect(()=>setRaw(String(value)),[value]);return <input type="number" step="any" value={raw} min={min} max={max} onChange={e=>setRaw(e.target.value)} onBlur={()=>{const n=Number(raw);if(raw.trim()&&Number.isFinite(n)&&n>=min&&n<=max)onChange(n);else{setRaw(String(value));toast.error(`Enter a number between ${min} and ${max}.`);}}}/>}
 function temp(n:number,unit:string){return Math.round(unit==='F'?n*9/5+32:n);}
 export default function Home(){
