@@ -1,0 +1,233 @@
+[
+  {
+    "sectionId": "595:51",
+    "name": "Pants",
+    "items": [
+      {
+        "nodeId": "595:57",
+        "hash": "07c76afd2804290f4f56bed55be60fadedf66338",
+        "file": "595-57.png"
+      },
+      {
+        "nodeId": "595:52",
+        "hash": "985a4955706bc1b8cdc0c1e808d31d5923984f07",
+        "file": "595-52.png"
+      },
+      {
+        "nodeId": "595:53",
+        "hash": "17883c8aeb6470a8e6b7065bfced7cad6a89442f",
+        "file": "595-53.png"
+      }
+    ]
+  },
+  {
+    "sectionId": "596:215",
+    "name": "Tees",
+    "items": [
+      {
+        "nodeId": "602:75",
+        "hash": "7923fff0c7a12463fa315666f5e806e107318689",
+        "file": "602-75.png"
+      },
+      {
+        "nodeId": "602:82",
+        "hash": "372844acfa92177521312fe7f388c89d5f93986a",
+        "file": "602-82.png"
+      },
+      {
+        "nodeId": "602:92",
+        "hash": "0f1371e0427c56469160e73bdaecd8531a4c2a5a",
+        "file": "602-92.png"
+      },
+      {
+        "nodeId": "602:105",
+        "hash": "54133b11a544875a5f43c5f7bc668d97021bc089",
+        "file": "602-105.png"
+      },
+      {
+        "nodeId": "602:109",
+        "hash": "3a43bf2d52aba99c6f82f376b6f2bb93c88bd613",
+        "file": "602-109.png"
+      },
+      {
+        "nodeId": "602:113",
+        "hash": "e8eef7800bba66877c0b841c7b56169ae80626d6",
+        "file": "602-113.png"
+      },
+      {
+        "nodeId": "602:117",
+        "hash": "94b38305d2424194897fbe23ab497c678f1343d2",
+        "file": "602-117.png"
+      },
+      {
+        "nodeId": "602:130",
+        "hash": "246fb63ee0fd860bebbe830270ff789a0600fad2",
+        "file": "602-130.png"
+      },
+      {
+        "nodeId": "602:143",
+        "hash": "625ca0d00993c82d7e216bb3f556ccfa9df56b66",
+        "file": "602-143.png"
+      },
+      {
+        "nodeId": "602:151",
+        "hash": "9b6511118901cdb3ccc0dca4b2196ae4cf8424b5",
+        "file": "602-151.png"
+      },
+      {
+        "nodeId": "602:158",
+        "hash": "2d536d9345d343086c7aa6bacaa0e5e9fc921bae",
+        "file": "602-158.png"
+      },
+      {
+        "nodeId": "602:165",
+        "hash": "95c7445e572c9d4a278c82ca64ec201a5f30f158",
+        "file": "602-165.png"
+      },
+      {
+        "nodeId": "602:178",
+        "hash": "9d9bac67d0ffbd099b180fe88294cfe304d2ccd1",
+        "file": "602-178.png"
+      },
+      {
+        "nodeId": "603:182",
+        "hash": "9392c0869b38025ac80f15484761bbfc2081e3e9",
+        "file": "603-182.png"
+      },
+      {
+        "nodeId": "603:189",
+        "hash": "0702d07e5ceeaac73747d94fa75b09c173dbf165",
+        "file": "603-189.png"
+      },
+      {
+        "nodeId": "603:196",
+        "hash": "f6f443ebacea58eac4c02d903833819e53596af4",
+        "file": "603-196.png"
+      },
+      {
+        "nodeId": "603:200",
+        "hash": "a724087e04c93c5488f9534d602d6a9536766b5f",
+        "file": "603-200.png"
+      },
+      {
+        "nodeId": "603:204",
+        "hash": "b24970a2fa39b9d57e410bc1917f65f35237db88",
+        "file": "603-204.png"
+      }
+    ]
+  },
+  {
+    "sectionId": "605:208",
+    "name": "Caps",
+    "items": [
+      {
+        "nodeId": "605:220",
+        "hash": "4ee2c4f199f8891d9bd1adee4efbc1d46db4d73c",
+        "file": "605-220.png"
+      },
+      {
+        "nodeId": "605:212",
+        "hash": "c5bcba5f63495f796f1b6a6df1decc6a3171b262",
+        "file": "605-212.png"
+      },
+      {
+        "nodeId": "605:230",
+        "hash": "2964f52ad7e2f60753e75666df311d556b38b3d2",
+        "file": "605-230.png"
+      },
+      {
+        "nodeId": "605:261",
+        "hash": "427460e83c6324be23c7c449f43f88ca8cf23ca0",
+        "file": "605-261.png"
+      }
+    ]
+  },
+  {
+    "sectionId": "585:203",
+    "name": "Shoes",
+    "items": [
+      {
+        "nodeId": "588:265",
+        "hash": "46a7732e0dec5bbee2501b49633742c25111ba6f",
+        "file": "588-265.png"
+      },
+      {
+        "nodeId": "587:227",
+        "hash": "375086d3f7c317b17384d5b493173bb29d99d359",
+        "file": "587-227.png"
+      },
+      {
+        "nodeId": "587:231",
+        "hash": "d9e9d029482f671f7cec7b1709f6d380b35705cf",
+        "file": "587-231.png"
+      },
+      {
+        "nodeId": "588:284",
+        "hash": "70615770f760e2621ddef48f8366f131f57489d1",
+        "file": "588-284.png"
+      },
+      {
+        "nodeId": "591:349",
+        "hash": "e1a246bb0f985d223190f7dfb5f0263331f943d5",
+        "file": "591-349.png"
+      },
+      {
+        "nodeId": "591:356",
+        "hash": "4fb93a44539e9e15abeea288ec5be14a7870b42c",
+        "file": "591-356.png"
+      },
+      {
+        "nodeId": "591:366",
+        "hash": "b5472ed5ebf033a24c092e2e0a74274a72f42b1f",
+        "file": "591-366.png"
+      }
+    ]
+  },
+  {
+    "sectionId": "584:34",
+    "name": "Crewnecks",
+    "items": [
+      {
+        "nodeId": "585:193",
+        "hash": "269cb60c504645cd41c58fa5c21e1c32a03d51a3",
+        "file": "585-193.png"
+      },
+      {
+        "nodeId": "585:208",
+        "hash": "534f06edd582d4ce9eccbecac473494fe0f158ef",
+        "file": "585-208.png"
+      },
+      {
+        "nodeId": "601:61",
+        "hash": "1c75208854dc3f8fb786a5364b6dca73ed997cbf",
+        "file": "601-61.png"
+      },
+      {
+        "nodeId": "601:68",
+        "hash": "37efb0699f2ece2dadec1558020a1dcd3778bacf",
+        "file": "601-68.png"
+      }
+    ]
+  },
+  {
+    "sectionId": "605:274",
+    "name": "Hoodies",
+    "items": [
+      {
+        "nodeId": "585:119",
+        "hash": "6180d78fa297dc0a876875fba77bab30f58833a7",
+        "file": "585-119.png"
+      },
+      {
+        "nodeId": "585:160",
+        "hash": "6e1f0a9279b40dd6af0c5269e5b28e3ce08cd3ac",
+        "file": "585-160.png"
+      },
+      {
+        "nodeId": "589:320",
+        "hash": "7fff348383ff6731a2c6dec973985240afb60e51",
+        "file": "589-320.png"
+      }
+    ]
+  }
+]
