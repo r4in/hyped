@@ -44,7 +44,9 @@ export function productFields(details: ProductDetails): Partial<Item> {
   // Prefer the product title so suggestions about other garments do not change category.
   const category = uniqueMatch(details.title,categories) || uniqueMatch(description,categories);
   if (category) fields.category = category;
-  const mainColor = color(details.color || details.title);
+  // A multi-color marketplace colorway does not identify its dominant color.
+  const explicitColor = details.color.trim().toLowerCase().replace(/\bgray\b/g,'grey');
+  const mainColor = explicitColor ? (colorNames.includes(explicitColor) ? explicitColor : undefined) : color(details.title);
   if (mainColor) fields.color = mainColor;
   const accent = description.match(/\b(?:accent colo[u]?r|contrast colo[u]?r)\s*:\s*([a-z]+)/i);
   const accentColor = accent && color(accent[1]);

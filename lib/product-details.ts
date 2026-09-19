@@ -1,4 +1,4 @@
-export type ProductDetails = { title: string; description: string; brand: string; material: string; color: string; sku: string; sourceUrl: string; fetchedAt: string };
+export type ProductDetails = { inputMethod?: 'page' | 'pasted'; title: string; description: string; brand: string; material: string; color: string; sku: string; sourceUrl: string; fetchedAt: string };
 
 export function productUrl(value: string): URL {
   let url: URL;
