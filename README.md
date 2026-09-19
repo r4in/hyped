@@ -26,13 +26,13 @@ React 19 + TypeScript on Vinext/Vite, using the Next App Router API and Cloudfla
 - `app/page.tsx`: Today, results, wardrobe and saved/worn views.
 - `app/api/state`: per-user D1 persistence; optimistic revisions prevent silent stale-tab overwrites.
 - `app/api/upload` and `app/api/image/[id]`: authenticated R2 photo writes/reads with content signatures and size limits.
-- `app/api/weather`: server-side city search and Open-Meteo current weather, with an explicit manual fallback.
+- `app/api/weather`: server-side Open-Meteo weather, fetched automatically from device location. If location fails, a previously observed, unambiguously matched city can be used and is labeled Saved location. No default city is presented as detected.
 - `lib/validation.ts`: limits and inventory-reference integrity at the persistence boundary.
 - `db/schema.ts` and `drizzle/`: schema and generated migration.
 
 The private Sites deployment provisions the `DB` and `BUCKET` bindings declared in `.openai/hosting.json`. No Figma credential, AI key, or weather secret is required at runtime. Open-Meteo's keyless endpoint is used for this personal, noncommercial app; a commercial rollout needs a suitable weather service plan. Never put paid API keys into client code.
 
-Product records are server-side; browser storage is not the source of truth. Preferences save with Generate or Save preferences. Weather saves with Use these conditions. Uploaded images are private to the authenticated user. Deleting a wardrobe item also removes dependent saved fits and their wear history, after confirmation. Uploaded bytes may remain as unreferenced objects after removing or replacing photos; no background garbage collector is included.
+Product records are server-side; browser storage is not the source of truth. Preferences save with Generate or Save preferences. Fresh weather saves with other app changes. Exact device coordinates are not persisted; requests round coordinates to city-scale precision. Uploaded images are private to the authenticated user. Deleting a wardrobe item also removes dependent saved fits and their wear history, after confirmation. Uploaded bytes may remain as unreferenced objects after removing or replacing photos; no background garbage collector is included.
 
 ## Import audit
 
@@ -54,7 +54,7 @@ Research was read before scoring rules were defined:
 
 Numerical scores are the app's interpretation, not rules asserted by the sources. No AI service is called. Labels and rationales are derived from the selected inventory records. Texture contributes styling notes; it does not assert fabric composition.
 
-Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. After-dark advice follows the weather’s daylight flag. Stored live weather older than an hour is relabeled as manual; opening a saved fit uses its recorded conditions as manual input. Legacy setting, occasion, time and temperature-comfort preferences remain compatible with stored records but no longer affect recommendations. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
+Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. After-dark advice follows the weather’s daylight flag. Weather refreshes on opening, every 15 minutes while visible, and when returning to the app. Generation requires a fresh observation under 30 minutes old. Location/weather failures show a retry message. Saved fits retain their recorded conditions, while regeneration uses current local weather. Legacy setting, occasion, time and temperature-comfort preferences remain compatible with stored records but no longer affect recommendations. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
 
 ## Verification
 
@@ -68,4 +68,4 @@ npm run build
 
 The API smoke script is for the initial local 39-item wardrobe only. It snapshots/restores local inventory and checks auth, upload/read, add/edit/reload/remove, stale-write rejection, input validation and weather/fallback. Do not point it at production.
 
-Browser verification: generate three looks → lock → regenerate → swap → save → mark worn → reload → retrieve favorite and worn date. Mobile (390px) and desktop layouts, image rendering and weather editor were inspected. The read-only WebMCP wardrobe tool was tested with valid and invalid input. Automated cases cover missing inventory, duplicate/missing locks, hot locked layers, freezing rain, high wind, automatic layering, ignored legacy preferences and exhausted combinations.
+Browser verification: generate three looks → lock → regenerate → swap → save → mark worn → reload → retrieve favorite and worn date. Mobile (390px) and desktop layouts and image rendering were inspected. The former detailed weather editor has been removed in favor of automatic local weather. The read-only WebMCP wardrobe tool was tested with valid and invalid input. Automated cases cover missing inventory, duplicate/missing locks, hot locked layers, freezing rain, high wind, automatic layering, ignored legacy preferences and exhausted combinations.

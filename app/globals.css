@@ -25,3 +25,5 @@
 .result-generation .field label{margin-top:0}
 .result-generation .primary{min-height:40px;padding:10px 16px;white-space:nowrap;font-size:12px}
 @media(max-width:700px){.result-generation{gap:12px}.result-generation .primary{padding:10px 12px;font-size:11px}}
+
+.weather-status{font-size:12px;line-height:1.6;color:var(--muted-foreground);display:flex;align-items:center;gap:8px;margin:12px 0 0}.weather-unavailable{font-size:13px;line-height:1.6;padding-top:18px}.weather-unavailable .text-button{margin-top:12px}
