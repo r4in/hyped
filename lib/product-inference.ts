@@ -13,7 +13,9 @@ const garment=/\b(?:tee|t-shirt|hoodie|sweatshirt|crewneck|sweater|jacket|coat|p
 
 export function narrativeProductName(text: string): string {
   const start=text.trim().replace(/^the\s+(?!north face\b)/i,'');
-  const match=start.match(/^(.{3,120}?)\s+(?:is|are|was|were|features?|offers?|combines?|delivers?|brings?|returns?|revives?|reimagines?|blends?|showcases?|boasts?|sports?|celebrates?|captures?|pays? tribute|takes?|channels?|updates?|introduces?|has|have)\b/i);
+  // Stop at the opening sentence's descriptive predicate, keeping collaboration
+  // names intact. Never consume a later sentence such as "It features ...".
+  const match=start.match(/^([^.!?\n]{3,120}?)\s+(?:is|are|was|were|features?|offers?|combines?|delivers?|brings?|returns?|revives?|reimagines?|blends?|showcases?|boasts?|sports?|celebrates?|captures?|pays? (?:tribute|homage)|nods? to|draws? (?:inspiration|on)|comes? (?:in|with)|takes?|channels?|updates?|introduces?|has|have)\b/i);
   const candidate=match?.[1].trim();
   if(!candidate||/^(?:this|that|these|those|it|they|a|an|our|your)\b/i.test(candidate))return '';
   const namedBrand=brands.some(([,pattern])=>pattern.test(candidate));

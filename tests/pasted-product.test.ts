@@ -90,3 +90,22 @@ test('low-cut necklines and absent leather do not become shoe specifications',()
  const item=fillProductFields(initialItems.find(i=>i.category==='tee')!,d).item;
  assert.equal(item.silhouette,'regular');
 });
+
+test('collaboration descriptions infer the complete name and brand, including existing pasted references',()=>{
+ const description='The Air Jordan 1 Low Fragment Design x Travis Scott nods to the original 2016 Air Jordan 1 Fragment with its simple color blocking. It features a smooth white leather upper with black and royal blue leather overlays. From there, a signature reversed Swoosh and yellowed soles add a Cactus Jack flair to the classic silhouette.';
+ const d=parsePastedProduct(description+'\nColorway: White/Black-Royal-Sail\nStyle: DM7866-140','');
+ const name='Air Jordan 1 Low Fragment Design x Travis Scott';
+ assert.equal(d.title,name);assert.equal(d.brand,'Jordan');
+ const shoe=initialItems.find(i=>i.category==='shoes')!;
+ for(const details of [d,{...d,title:'',brand:''}]){
+  const result=fillProductFields(shoe,details);
+  assert.equal(result.item.name,name);assert.equal(result.item.brand,'Jordan');
+  assert.equal(result.item.productDetails?.title,name);assert.equal(result.item.productDetails?.brand,'Jordan');
+  assert(result.filled.includes('name'));assert(result.filled.includes('brand'));
+ }
+ for(const phrase of ['pays homage to the original','draws inspiration from the original','comes with leather overlays']){
+  assert.equal(parsePastedProduct(`The ${name} ${phrase}.`,'').title,name);
+ }
+ const uncertain=parsePastedProduct('The Jordan sneaker looks interesting. It features leather overlays.','');
+ assert.equal(uncertain.title,'');assert.equal(uncertain.brand,'');
+});
