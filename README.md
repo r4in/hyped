@@ -42,6 +42,12 @@ Original-byte extraction was attempted; processed image fills did not consistent
 
 Names describe visible features. Fit, warmth and surface texture are estimates; material defaults to Unknown. Waterproofing and insulation default to unverified and can only be confirmed in the editor. The category list also supports outerwear uploads so weather gaps can be resolved.
 
+## Product references
+
+The item editor accepts an optional public HTTPS product URL. Get details reads product JSON-LD or page metadata and saves a plain-text reference (name, description, brand, material, color, SKU, source and fetch date) with the item. The user can explicitly apply the product name/material before Save piece. Existing photos and weather-protection flags are never overwritten. Old inventory records remain compatible without these optional fields.
+
+The authenticated server reader uses no API keys, validates public destinations and each redirect, checks DNS addresses, forwards no user cookies, and limits response size and duration. Shops requiring sign-in, blocking automated access, or rendering details only through JavaScript may not return details; the URL can still be saved. Retrieved claims are attributed to the page and require checking the exact product version.
+
 ## Recommendation approach
 
 A rules-based engine samples and ranks candidate combinations. It always requires owned tee, pants and shoes; adds a cap when selected; and automatically adds a hoodie or crewneck below 18°C feels-like. It scores neutral/tonal coordination, repeated accents, silhouette, graphic balance and style direction. It reduces recent worn-item reuse and penalizes overlap across the three selected looks. Exact combinations already generated in the active session are excluded. Locks override sampling but cannot refer to missing records or occupy the same slot twice.
