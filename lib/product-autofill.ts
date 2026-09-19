@@ -32,6 +32,7 @@ export function productFields(details: ProductDetails): Partial<Item> {
   const text = `${details.title}. ${description}`;
   if (details.title.trim()) fields.name = details.title.trim().slice(0,120);
   if (description) fields.notes = description;
+  if (details.brand.trim()) fields.brand = details.brand.trim().slice(0,120);
   const material = productMaterial(details);
   if (material) fields.material = material;
   const categories: [Category,RegExp][] = [
@@ -71,7 +72,7 @@ export function productFields(details: ProductDetails): Partial<Item> {
   return fields;
 }
 
-const fieldLabels: Partial<Record<keyof Item,string>> = {name:'name',notes:'notes',material:'material',category:'category',color:'main color',accent:'accent color',silhouette:'fit',graphic:'graphics',texture:'texture'};
+const fieldLabels: Partial<Record<keyof Item,string>> = {name:'name',brand:'brand',notes:'notes',material:'material',category:'category',color:'main color',accent:'accent color',silhouette:'fit',graphic:'graphics',texture:'texture'};
 export function fillProductFields(item: Item, details: ProductDetails, startedFrom = item) {
   const fields = productFields(details);
   const next = {...item,productDetails:details};

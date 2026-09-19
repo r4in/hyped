@@ -8,7 +8,7 @@ const details: ProductDetails={title:'BASIC STÜSSY TEE',description:'Relaxed fi
 const tee=initialItems.find(i=>i.id==='figma-602-113')!;
 test('Stüssy details automatically populate supported fields and preserve unknowns',()=>{
   const {item,filled}=fillProductFields(tee,details);
-  assert.equal(item.name,'BASIC STÜSSY TEE');assert.equal(item.category,'tee');
+  assert.equal(item.name,'BASIC STÜSSY TEE');assert.equal(item.brand,'Stussy');assert.equal(itemSchema.parse(item).brand,'Stussy');assert.equal(item.category,'tee');
   assert.equal(item.silhouette,'relaxed');assert.equal(item.graphic,'logo');assert.equal(item.material,'100% cotton');
   assert.match(item.notes,/tee\. Midweight/);assert.match(item.notes,/100% cotton/);
   assert.equal(item.texture,tee.texture);assert.equal(item.color,tee.color);assert.equal(item.accent,tee.accent);
@@ -24,16 +24,16 @@ test('explicit dropdown values map to existing options and uncertain values stay
   assert.equal(uncertain.color,undefined);assert.equal(uncertain.silhouette,undefined);assert.equal(uncertain.texture,undefined);assert.equal(uncertain.material,undefined);
 });
 test('empty or ambiguous information does not clear existing fields',()=>{
-  const blank={...details,title:'',description:'',material:'',color:''};
+  const blank={...details,title:'',brand:'',description:'',material:'',color:''};
   const {item}=fillProductFields(tee,blank);
   assert.deepEqual({...item,productDetails:undefined},{...tee,productDetails:undefined});
   const fields=productFields({...blank,title:'Black and white tee',description:'Regular fit or relaxed fit options.'});
   assert.equal(fields.color,undefined);assert.equal(fields.silhouette,undefined);
 });
 test('edits made during fetching survive while other supported fields populate',()=>{
-  const modified={...tee,name:'My favorite tee',notes:'Gift from a friend',silhouette:'slim'};
+  const modified={...tee,name:'My favorite tee',brand:'My label',notes:'Gift from a friend',silhouette:'slim'};
   const {item,filled}=fillProductFields(modified,details,tee);
-  assert.equal(item.name,modified.name);assert.equal(item.notes,modified.notes);assert.equal(item.silhouette,modified.silhouette);
+  assert.equal(item.name,modified.name);assert.equal(item.brand,modified.brand);assert.equal(item.notes,modified.notes);assert.equal(item.silhouette,modified.silhouette);
   assert.equal(item.material,'100% cotton');assert(!filled.includes('name'));
   const again=fillProductFields(item,details).item;
   assert.equal(again.notes,fillProductFields(again,details).item.notes);

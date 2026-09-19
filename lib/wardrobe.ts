@@ -1,7 +1,7 @@
 import type { ProductDetails } from './product-details';
 import manifest from '../data/import-manifest.json';
 export type Category='tee'|'pants'|'shoes'|'cap'|'crewneck'|'hoodie'|'outerwear';
-export type Item={productUrl?:string;productDetails?:ProductDetails;id:string;name:string;category:Category;color:string;accent:string;silhouette:string;graphic:'quiet'|'logo'|'statement';texture:string;warmth:number;waterproof:boolean;insulated:boolean;estimated:boolean;material:string;notes:string;image:string;sourceNode:string;sourceSection:string;sourceHash:string};
+export type Item={brand?:string;productUrl?:string;productDetails?:ProductDetails;id:string;name:string;category:Category;color:string;accent:string;silhouette:string;graphic:'quiet'|'logo'|'statement';texture:string;warmth:number;waterproof:boolean;insulated:boolean;estimated:boolean;material:string;notes:string;image:string;sourceNode:string;sourceSection:string;sourceHash:string};
 export type Weather={temp:number;feels:number;rain:number;wind:number;humidity:number;source:'manual'|'live';city:string;at:string;isDay:boolean;season:string};
 export type Preferences={style:string;occasion:string;plan:string;comfort:string;time:string;cap:boolean;unit:'C'|'F'};
 export type Fit={id:string;name:string;items:string[];createdAt:string;favorite:boolean;worn:string[];style:string;weather:Weather;preferences?:Preferences};

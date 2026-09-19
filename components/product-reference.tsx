@@ -35,7 +35,7 @@ export function ProductReference({ item, onChange }: { item: Item; onChange: (it
     <div className="product-url-row"><input id="product-url" type="url" inputMode="url" autoCapitalize="none" spellCheck={false} placeholder="https://shop.com/products/your-piece" maxLength={2048} value={item.productUrl||''} disabled={busy} onChange={e=>{setError('');setFilled([]);onChange({...item,productUrl:e.target.value,productDetails:undefined});}}/>
       <button className="outline-button" type="button" onClick={readDetails} disabled={busy||!item.productUrl?.trim()}>{busy?<><LoaderCircle className="spin" size={14}/>Reading…</>:'Get details'}</button>
     </div>
-    <p className="product-help">Get details to fill the name, notes, material, and matching options from the product page. You can edit them before saving.</p>
+    <p className="product-help">Get details to fill the name, brand, notes, material, and matching options from the product page. You can edit them before saving.</p>
     {validLink&&<a className="source-link" href={validLink} target="_blank" rel="noreferrer">Open product page <ArrowUpRight size={13}/></a>}
     {error&&<p className="notice error" role="alert">{error}</p>}
     {details&&<div className="product-preview">
