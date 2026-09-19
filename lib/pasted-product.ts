@@ -13,8 +13,8 @@ const section = /^(?:product details|product information|details|specifications|
 const navigation = /^(?:stockx|home|browse|buy|sell|login|log in|sign in|size|select size|all sizes|size guide|condition|new|verified authentic|retail price|release date)$/i;
 
 /** Read only the text the user supplies. Never execute markup or fetch another URL. */
-export function parsePastedProduct(raw: string, source: string): ProductDetails {
-  const sourceUrl = productUrl(source).href;
+export function parsePastedProduct(raw: string, source: string, inputMethod: 'pasted' | 'screenshot' = 'pasted'): ProductDetails {
+  const sourceUrl = source.trim() ? productUrl(source).href : '';
   if (raw.length > 12000) throw Error('Paste just the product title, specifications and description (up to 12,000 characters).');
   const lines = raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<[^>]*>/g,' ').split(/\r?\n/).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean);
   const values: Record<string,string> = {};
@@ -49,7 +49,7 @@ export function parsePastedProduct(raw: string, source: string): ProductDetails 
   const result: ProductDetails = {
     title,description:descriptionParts.join(' ').slice(0,500),brand:(values.brand||'').slice(0,120),
     material:(values.material||'').slice(0,500),color:(values.color||'').slice(0,120),sku:(values.sku||'').slice(0,120),
-    sourceUrl,fetchedAt:new Date().toISOString(),inputMethod:'pasted',
+    sourceUrl,fetchedAt:new Date().toISOString(),inputMethod,
   };
   if (!result.title && !result.description && !result.brand && !result.material && !result.color && !result.sku) throw Error('Paste the product’s title, description or specifications first.');
   if(!result.material) result.material=productMaterial(result);

@@ -51,3 +51,11 @@ test('pasted markup is never retained as executable content and old details rema
  const {inputMethod,...legacy}=d;
  assert.equal(inputMethod,'pasted');assert(itemSchema.safeParse({...item,productDetails:legacy}).success);
 });
+test('screenshots can fill and persist details without an invented source URL',()=>{
+ const d=parsePastedProduct('Name: Studio Hoodie\nBrand: Studio\nMaterial: 100% cotton\nFit: relaxed','', 'screenshot');
+ assert.equal(d.sourceUrl,'');assert.equal(d.inputMethod,'screenshot');
+ const item=fillProductFields(initialItems[0],d).item;
+ assert.equal(item.name,'Studio Hoodie');assert.equal(item.brand,'Studio');assert.equal(item.silhouette,'relaxed');
+ assert(itemSchema.safeParse(item).success);
+ assert(!itemSchema.safeParse({...item,productDetails:{...d,inputMethod:'page'}}).success);
+});

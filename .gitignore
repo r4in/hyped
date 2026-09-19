@@ -45,3 +45,6 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+
+# Generated from pinned OCR packages before dev/build
+/public/ocr/
