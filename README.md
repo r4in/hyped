@@ -44,7 +44,7 @@ Names describe visible features. Fit, warmth and surface texture are estimates; 
 
 ## Recommendation approach
 
-A rules-based engine samples and ranks candidate combinations. It always requires owned tee, pants and shoes; adds a cap when selected; and adds layers based on feels-like temperature, comfort and plans. It scores neutral/tonal coordination, repeated accents, silhouette, graphic balance, occasion and style direction. It reduces recent worn-item reuse and penalizes overlap across the three selected looks. Exact combinations already generated in the active session are excluded. Locks override sampling but cannot refer to missing records or occupy the same slot twice.
+A rules-based engine samples and ranks candidate combinations. It always requires owned tee, pants and shoes; adds a cap when selected; and automatically adds a hoodie or crewneck below 18°C feels-like. It scores neutral/tonal coordination, repeated accents, silhouette, graphic balance and style direction. It reduces recent worn-item reuse and penalizes overlap across the three selected looks. Exact combinations already generated in the active session are excluded. Locks override sampling but cannot refer to missing records or occupy the same slot twice.
 
 Research was read before scoring rules were defined:
 
@@ -54,7 +54,7 @@ Research was read before scoring rules were defined:
 
 Numerical scores are the app's interpretation, not rules asserted by the sources. No AI service is called. Labels and rationales are derived from the selected inventory records. Texture contributes styling notes; it does not assert fabric composition.
 
-Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. Evening plans explicitly warn that current weather is not an evening forecast. Stored live weather older than an hour is relabeled as manual; opening a saved fit uses its recorded conditions as manual input. Indoor plans use a neutral room-temperature heuristic. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
+Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. After-dark advice follows the weather’s daylight flag. Stored live weather older than an hour is relabeled as manual; opening a saved fit uses its recorded conditions as manual input. Legacy setting, occasion, time and temperature-comfort preferences remain compatible with stored records but no longer affect recommendations. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
 
 ## Verification
 
@@ -68,4 +68,4 @@ npm run build
 
 The API smoke script is for the initial local 39-item wardrobe only. It snapshots/restores local inventory and checks auth, upload/read, add/edit/reload/remove, stale-write rejection, input validation and weather/fallback. Do not point it at production.
 
-Browser verification: generate three looks → lock → regenerate → swap → save → mark worn → reload → retrieve favorite and worn date. Mobile (390px) and desktop layouts, image rendering and weather editor were inspected. The read-only WebMCP wardrobe tool was tested with valid and invalid input. Automated cases cover missing inventory, duplicate/missing locks, hot locked layers, freezing rain, high wind, comfort settings and exhausted combinations.
+Browser verification: generate three looks → lock → regenerate → swap → save → mark worn → reload → retrieve favorite and worn date. Mobile (390px) and desktop layouts, image rendering and weather editor were inspected. The read-only WebMCP wardrobe tool was tested with valid and invalid input. Automated cases cover missing inventory, duplicate/missing locks, hot locked layers, freezing rain, high wind, automatic layering, ignored legacy preferences and exhausted combinations.

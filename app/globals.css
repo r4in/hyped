@@ -17,3 +17,6 @@
 .result-lookbook{min-height:0}
 .collage-canvas{display:block;width:100%;height:auto}
 .collage-garment{overflow:hidden}
+
+.automatic-layer-note{font-size:12px;line-height:1.6;color:var(--muted-foreground);margin:18px 0 0}
+@media(max-width:700px){.setup>.field,.setup>.automatic-layer-note{grid-column:1/-1}}

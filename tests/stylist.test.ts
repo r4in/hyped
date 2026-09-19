@@ -11,6 +11,30 @@ test('missing and conflicting locks fail visibly',()=>{assert.throws(()=>generat
 test('incomplete wardrobe does not invent shoes',()=>{assert.throws(()=>generate(initialItems.filter(i=>i.category!=='shoes'),p,w),/shoes/);});
 test('cold rain cannot be presented as sufficient protection',()=>{const weather={...w,feels:-4,temp:0,rain:6,wind:35};const pref={...p,plan:'Outdoors'};const look=generate(initialItems,pref,weather,[],[],[],rand)[0];assert(look.some(i=>i.category==='hoodie'||i.category==='crewneck'));const a=assess(look,weather,pref);assert(a.gaps.some(x=>x.includes('insulated')));assert(a.gaps.some(x=>x.includes('waterproof')));assert(a.gaps.some(x=>x.includes('wind')));assert(a.gaps.some(x=>x.includes('ice grip')));});
 test('warm locked hoodie remains but is called out',()=>{const hoodie=initialItems.find(i=>i.category==='hoodie')!;const hot={...w,feels:29,temp:29,humidity:90};const look=generate(initialItems,{...p,plan:'Outdoors'},hot,[hoodie.id],[],[],rand)[0];assert(look.some(i=>i.id===hoodie.id));const a=assess(look,hot,{...p,plan:'Outdoors'},[hoodie.id]);assert(a.notes.some(x=>x.includes('Locked layer conflict')));assert(a.notes.some(x=>x.includes('Humid')));});
-test('comfort and indoor plans change the layer decision',()=>{assert(needsLayer({...w,feels:19},{...p,comfort:'Runs cold'}));assert(!needsLayer({...w,feels:19},{...p,comfort:'Runs warm'}));assert(!needsLayer({...w,feels:-10},{...p,plan:'Indoors'}));});
+test('layers follow feels-like temperature automatically',()=>{
+  for(const feels of [16,0,18,26]){
+    const weather={...w,temp:25,feels};
+    assert.equal(needsLayer(weather),feels<18);
+    const looks=generate(initialItems,p,weather,[],[],[],rand);
+    assert(looks.every(look=>look.some(i=>['hoodie','crewneck'].includes(i.category))===(feels<18)));
+  }
+});
+test('legacy hidden preferences cannot alter new looks or weather warnings',()=>{
+  const legacy={...p,plan:'Indoors',comfort:'Runs warm',occasion:'Smart casual',time:'Evening'};
+  for(const feels of [-4,16,26]){
+    const weather={...w,feels,rain:4};
+    seed=783;const current=generate(initialItems,p,weather,[],[],[],rand);
+    seed=783;const old=generate(initialItems,legacy,weather,[],[],[],rand);
+    assert.deepEqual(old,current);
+    assert.deepEqual(assess(old[0],weather,legacy),assess(current[0],weather,p));
+    assert(assess(old[0],weather,legacy).gaps.some(g=>g.includes('waterproof')));
+  }
+});
+test('automatic layering explains a wardrobe with no warm layers',()=>{
+  const inventory=initialItems.filter(i=>!['hoodie','crewneck'].includes(i.category));
+  const weather={...w,feels:12};
+  const look=generate(inventory,p,weather,[],[],[],rand)[0];
+  assert(assess(look,weather,p).gaps.some(g=>g.includes('warmer layer is missing')));
+});
 test('all locked and exhausted yields empty result rather than a fake variation',()=>{const inventory=initialItems.filter(i=>['602:75','595:52','587:231'].includes(i.sourceNode));const ids=inventory.map(i=>i.id);assert.deepEqual(generate(inventory,{...p,cap:false},w,ids,[],[signature(ids)],rand),[]);});
 test('saved fits cannot reference missing wardrobe records',()=>{const s={items:initialItems,fits:[],preferences:p,weather:w,revision:0};assert(stateSchema.safeParse(s).success);assert(!stateSchema.safeParse({...s,fits:[{id:'bad',name:'Bad',items:['invented'],favorite:true,worn:[],createdAt:'',style:p.style,weather:w}]}).success);assert(!stateSchema.safeParse({...s,weather:{...w,humidity:120}}).success);});
