@@ -23,14 +23,20 @@ export async function fetchProduct(raw: string, ownHost: string, fetcher = fetch
     }));
     const addresses = records.flat();
     if (!addresses.length || addresses.some(ip=>!publicAddress(ip))) throw Error('Use a public product page URL.');
-    const response = await fetcher(url.href,{ redirect:'manual',credentials:'omit',headers:{Accept:'text/html,application/xhtml+xml'},signal });
+    // Workers do not supply a default User-Agent; some retailers reject unidentified requests.
+    const response = await fetcher(url.href,{ redirect:'manual',credentials:'omit',headers:{Accept:'text/html,application/xhtml+xml','User-Agent':'Hyope/1.0 (product reference reader)'},signal });
     if ([301,302,303,307,308].includes(response.status)) {
       await response.body?.cancel();
       const destination = response.headers.get('location');
       if (!destination) throw Error('This product link has an invalid redirect.');
       url=productUrl(new URL(destination,url).href); continue;
     }
-    if (!response.ok) throw Error('This shop couldn’t be read automatically. You can still save the link.');
+    if (!response.ok) {
+      await response.body?.cancel();
+      if (response.status === 404) throw Error('This product page wasn’t found. Check the link or save it for later.');
+      if (response.status === 403 || response.status === 429) throw Error('This shop is limiting automatic requests. Try again later, or save the link.');
+      throw Error(`This shop returned an error (${response.status}). You can still save the link.`);
+    }
     if (!/text\/html|application\/xhtml\+xml/i.test(response.headers.get('content-type')||'')) throw Error('Link to a product page, rather than a file or photo.');
     const reader = response.body?.getReader();
     if (!reader) throw Error('The product page was empty.');

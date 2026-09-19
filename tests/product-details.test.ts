@@ -38,11 +38,18 @@ test('fetch validates DNS and every redirect without forwarding credentials',asy
     const target=String(input);
     if(target.startsWith('https://cloudflare-dns.com/'))return Response.json({Status:0,Answer:[{type:1,data:'93.184.216.34'}]});
     assert.equal(init?.redirect,'manual');assert.equal(init?.credentials,'omit');
+    assert.equal(new Headers(init?.headers).get('User-Agent'),'Hyope/1.0 (product reference reader)');
     return new Response('',{status:302,headers:{Location:'https://127.0.0.1/private'}});
   }) as typeof fetch;
   await assert.rejects(fetchProduct(url,'hyope.example.com',fetcher),/public HTTPS/);
   const privateDns=(async()=>Response.json({Status:0,Answer:[{type:1,data:'10.0.0.1'}]})) as typeof fetch;
   await assert.rejects(fetchProduct(url,'hyope.example.com',privateDns),/public product/);
+});
+test('retailer failures explain missing pages, request limits and server errors',async()=>{
+  for(const [status,message] of [[404,/wasn’t found/],[403,/limiting automatic requests/],[429,/limiting automatic requests/],[503,/error \(503\)/]] as const){
+    const fetcher=(async(input:RequestInfo|URL)=>String(input).startsWith('https://cloudflare-dns.com/')?Response.json({Status:0,Answer:[{type:1,data:'93.184.216.34'}]}):new Response('unavailable',{status})) as typeof fetch;
+    await assert.rejects(fetchProduct(url,'hyope.example.com',fetcher),message);
+  }
 });
 test('public HTML is read and non-HTML or excessive responses fail clearly',async()=>{
   const fetcher=(async(input:RequestInfo|URL)=>String(input).startsWith('https://cloudflare-dns.com/')?Response.json({Status:0,Answer:[{type:1,data:'93.184.216.34'}]}):new Response(html,{headers:{'Content-Type':'text/html'}})) as typeof fetch;
