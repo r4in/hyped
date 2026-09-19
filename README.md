@@ -44,7 +44,7 @@ Names describe visible features. Fit, warmth and surface texture are estimates; 
 
 ## Product references
 
-The item editor accepts an optional public HTTPS product URL. Get details reads product JSON-LD or page metadata and saves a plain-text reference (name, description, brand, material, color, SKU, source and fetch date) with the item. The user can explicitly apply the product name/material before Save piece. Existing photos and weather-protection flags are never overwritten. Old inventory records remain compatible without these optional fields.
+The item editor accepts an optional public HTTPS product URL. Get details reads product JSON-LD or page metadata and retains a plain-text reference (name, description, brand, material, color, SKU, source and fetch date). It automatically fills the editor’s name, notes, explicit material composition, and unambiguous supported category, color, accent, fit, graphics and texture options. A field edited while fetching is preserved. Saved references can be applied again with Fill fields from product details. Fields without a clear match, photos, warmth, protection flags and review status stay unchanged. Save piece persists the reviewed editor values and reference. Old inventory records remain compatible without these optional fields.
 
 The authenticated server reader uses no API keys, validates public destinations and each redirect, checks DNS addresses, forwards no user cookies, and limits response size and duration. Shops requiring sign-in, blocking automated access, or rendering details only through JavaScript may not return details; the URL can still be saved. Retrieved claims are attributed to the page and require checking the exact product version.
 
