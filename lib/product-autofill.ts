@@ -1,5 +1,6 @@
 import type { ProductDetails } from './product-details';
 import type { Category, Item } from './wardrobe';
+import { enrichProductDetails } from './product-inference';
 
 const colorNames = ['black','white','cream','grey','navy','blue','olive','red','pink','brown'];
 function color(value: string) {
@@ -18,7 +19,11 @@ export function productMaterial(details: ProductDetails) {
   const description = productDescription(details.description);
   // Copy a labelled composition only; fabric mentions alone may refer to a trim or lining.
   const composition = description.match(/\b(?:material|composition|fabric)\s*:\s*((?:\d{1,3}(?:\.\d+)?\s*%\s*(?:(?:organic|recycled)\s+)?(?:cotton|polyester|elastane|spandex|nylon|wool|linen|viscose|rayon|silk|acrylic|polyamide|lyocell|hemp)(?:\s*[,/+&]\s*|\s+(?:and\s+)?(?=\d)|\s*))+)/i);
-  return composition?.[1].trim().replace(/[,/+&]\s*$/,'') || '';
+  if(composition)return composition[1].trim().replace(/[,/+&]\s*$/,'');
+  // Preserve the stated scope: an upper's material is not the entire shoe's composition.
+  const upper=description.match(/\b((?:(?:full[- ]grain|genuine|synthetic|faux|vegan)\s+)?(?:leather|suede|canvas|mesh|nylon)(?:\s+(?:and|with)\s+(?:leather|suede|canvas|mesh|nylon))?)\s+upper\b/i);
+  if(upper&&!/\b(?:not|without|no)\s+(?:a\s+)?$/i.test(description.slice(0,upper.index)))return `${upper[1]} (upper)`;
+  return '';
 }
 
 function uniqueMatch<T extends string>(text: string, rules: [T,RegExp][]): T | undefined {
@@ -26,7 +31,8 @@ function uniqueMatch<T extends string>(text: string, rules: [T,RegExp][]): T | u
   return matches.length === 1 ? matches[0] : undefined;
 }
 
-export function productFields(details: ProductDetails): Partial<Item> {
+export function productFields(input: ProductDetails): Partial<Item> {
+  const details=enrichProductDetails(input);
   const fields: Partial<Item> = {};
   const description = productDescription(details.description);
   const text = `${details.title}. ${description}`;
@@ -55,7 +61,7 @@ export function productFields(details: ProductDetails): Partial<Item> {
     ['regular',/\b(?:regular|standard) fit\b/i], ['relaxed',/\b(?:relaxed|loose) fit\b/i],
     ['oversized',/\boversized\b/i], ['tapered',/\btapered (?:fit|leg|cut)\b/i],
     ['slim',/\bslim (?:fit|cut)\b/i], ['structured',/\bstructured (?:cap|crown|fit)\b/i],
-    ['low-top',/\blow[- ]tops?\b/i], ['high-top',/\bhigh[- ]tops?\b/i],
+    ['low-top',category==='shoes'?/\blow[- ](?:tops?|cut)\b/i:/\blow[- ]tops?\b/i], ['high-top',category==='shoes'?/\bhigh[- ](?:tops?|cut)\b/i:/\bhigh[- ]tops?\b/i],
   ]);
   // Avoid turning an explicitly negated fit into an assertion.
   if (silhouette && !/\b(?:not|non)[ -](?:a |an )?(?:regular|standard|relaxed|loose|oversized|tapered|slim|structured|low.top|high.top)\b/i.test(text)) fields.silhouette = silhouette;
@@ -76,8 +82,9 @@ export function productFields(details: ProductDetails): Partial<Item> {
 
 const fieldLabels: Partial<Record<keyof Item,string>> = {name:'name',brand:'brand',notes:'notes',material:'material',category:'category',color:'main color',accent:'accent color',silhouette:'fit',graphic:'graphics',texture:'texture'};
 export function fillProductFields(item: Item, details: ProductDetails, startedFrom = item) {
-  const fields = productFields(details);
-  const next = {...item,productDetails:details};
+  const enriched=enrichProductDetails(details);
+  const fields = productFields(enriched);
+  const next = {...item,productDetails:{...enriched,material:fields.material||enriched.material}};
   const filled: string[] = [];
   for (const key of Object.keys(fields) as (keyof Item)[]) {
     // Do not overwrite a field the user edited while the request was running.

@@ -1,5 +1,6 @@
 import { productUrl, type ProductDetails } from './product-details';
 import { productMaterial } from './product-autofill';
+import { enrichProductDetails, narrativeProductName } from './product-inference';
 
 const labels: Record<string,string> = {
   name:'title','product name':'title',title:'title',brand:'brand',manufacturer:'brand',
@@ -36,7 +37,7 @@ export function parsePastedProduct(raw: string, source: string, inputMethod: 'pa
     }
     if (section.test(line)) {inDetails=true;continue;}
     if (navigation.test(line) || /^\$|^\d{4}-\d{2}-\d{2}$/.test(line)) {inDetails=true;continue;}
-    if (!inDetails && titleLines.length<2 && line.length<=120 && !/[.!?]$/.test(line)) titleLines.push(line);
+    if (!inDetails && !narrativeProductName(line) && titleLines.length<2 && line.length<=120 && !/[.!?]$/.test(line)) titleLines.push(line);
     else {inDetails=true;prose.push(line);}
   }
   const title=(values.title || titleLines.join(' ')).slice(0,120);
@@ -53,5 +54,5 @@ export function parsePastedProduct(raw: string, source: string, inputMethod: 'pa
   };
   if (!result.title && !result.description && !result.brand && !result.material && !result.color && !result.sku) throw Error('Paste the product’s title, description or specifications first.');
   if(!result.material) result.material=productMaterial(result);
-  return result;
+  return enrichProductDetails(result);
 }
