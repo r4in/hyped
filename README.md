@@ -26,7 +26,7 @@ React 19 + TypeScript on Vinext/Vite, using the Next App Router API and Cloudfla
 - `app/page.tsx`: Today, results, wardrobe and saved/worn views.
 - `app/api/state`: per-user D1 persistence; optimistic revisions prevent silent stale-tab overwrites.
 - `app/api/upload` and `app/api/image/[id]`: authenticated R2 photo writes/reads with content signatures and size limits.
-- `app/api/weather`: server-side Open-Meteo weather, fetched automatically from device location. If location fails, a previously observed, unambiguously matched city can be used and is labeled Saved location. No default city is presented as detected.
+- `app/api/weather`: authenticated Open-Meteo weather, with a direct public-provider recovery path when server egress fails. City search lists distinct city/region/country matches and works without device location permission. A selected city is used until Use my location is chosen; Generate or Save preferences persists it through the existing weather record. Saved cities are re-resolved by exact label on reload; no ambiguous/default city is substituted. Both paths validate conditions and the provider observation timestamp, and reject stale weather.
 - `lib/validation.ts`: limits and inventory-reference integrity at the persistence boundary.
 - `db/schema.ts` and `drizzle/`: schema and generated migration.
 
@@ -60,7 +60,7 @@ Research was read before scoring rules were defined:
 
 Numerical scores are the app's interpretation, not rules asserted by the sources. No AI service is called. Labels and rationales are derived from the selected inventory records. Texture contributes styling notes; it does not assert fabric composition.
 
-Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. After-dark advice follows the weather’s daylight flag. Weather refreshes on opening, every 15 minutes while visible, and when returning to the app. Generation requires a fresh observation under 30 minutes old. Location/weather failures show a retry message. Saved fits retain their recorded conditions, while regeneration uses current local weather. Legacy setting, occasion, time and temperature-comfort preferences remain compatible with stored records but no longer affect recommendations. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
+Weather uses current temperature, feels-like, precipitation, wind, humidity and daylight. Season supports the advice. After-dark advice follows the weather’s daylight flag. Weather refreshes on opening, every 15 minutes while visible, and when returning to the app. Generation requires a fresh observation under 30 minutes old. Location/weather failures show a retry message and city search. Refresh also retries after returning online, and a still-fresh observation is retained if refresh fails. Saved fits retain their recorded conditions, while regeneration uses current local weather. Legacy setting, occasion, time and temperature-comfort preferences remain compatible with stored records but no longer affect recommendations. These are comfort estimates, not performance guarantees. Cold, rain and strong wind surface protection gaps; proposed additions stay separate and labeled as not owned.
 
 ## Verification
 
