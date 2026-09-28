@@ -2,14 +2,11 @@
 import { useEffect,useState } from 'react';
 import { readWardrobeBackup,sameWardrobe,type WardrobeBackup } from '@/lib/wardrobe-transfer';
 import { stateSchema } from '@/lib/validation';
+import { readApiResponse,signInMessage } from '@/lib/api-client';
 
-function responseError(data:unknown,fallback:string){
-  return data&&typeof data==='object'&&'error' in data&&typeof data.error==='string'?data.error:fallback;
-}
 async function loadSaved(){
   const response=await fetch('/api/state',{cache:'no-store'});
-  const data=await response.json();
-  if(!response.ok)throw Error(responseError(data,'Could not read your saved wardrobe.'));
+  const data=await readApiResponse(response);
   return stateSchema.parse(data);
 }
 export function WardrobeTransfer(){
@@ -42,8 +39,7 @@ export function WardrobeTransfer(){
     try{
       const next={...incoming,revision:current.revision};
       const response=await fetch('/api/state',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(next)});
-      const result=await response.json();
-      if(!response.ok)throw Error(responseError(result,'Could not import your wardrobe.'));
+      await readApiResponse(response);
       const verified=await loadSaved();
       if(!sameWardrobe(next,verified))throw Error('Your wardrobe was saved, but verification could not finish. Keep your backup and reload to check it.');
       setCurrent(verified);setIncoming(null);setBackedUp(false);
@@ -69,7 +65,7 @@ export function WardrobeTransfer(){
         <button className="primary" disabled={!backedUp||busy||!current} onClick={importBackup}>{busy?'Importing…':'Import wardrobe'}</button>
         {!backedUp&&<p>Download your current backup first.</p>}</>}
     </section>
-    {error&&<p className="notice error" role="alert">{error}</p>}
+    {error&&<p className="notice error" role="alert">{error} {error===signInMessage&&<a href="/signin-with-chatgpt?return_to=/transfer" target="_top">Sign in again</a>}</p>}
     {message&&<p className="notice" role="status">{message}</p>}
   </main>;
 }
