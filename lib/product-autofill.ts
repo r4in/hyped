@@ -42,7 +42,7 @@ export function productFields(input: ProductDetails): Partial<Item> {
   const material = productMaterial(details);
   if (material) fields.material = material;
   const categories: [Category,RegExp][] = [
-    ['tee',/\b(?:tee|t-shirt|t shirt)\b/i], ['pants',/\b(?:pants|trousers|jeans)\b/i],
+    ['shorts',/\bshorts\b/i], ['tee',/\b(?:tee|t-shirt|t shirt)\b/i], ['pants',/\b(?:pants|trousers|jeans)\b/i],
     ['shoes',/\b(?:sneakers?|shoes?|trainers?)\b/i], ['cap',/\b(?:snapback|baseball cap|cap)\b/i],
     ['hoodie',/\b(?:hoodie|hooded sweatshirt)\b/i], ['crewneck',/\b(?:crewneck sweatshirt|crewneck sweater|sweatshirt|sweater)\b/i],
     ['outerwear',/\b(?:jacket|coat|parka)\b/i],

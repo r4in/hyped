@@ -9,7 +9,7 @@ const brands: [string,RegExp][] = [
   ['The North Face',/\bthe north face\b/i],['Patagonia',/\bpatagonia\b/i],
   ['Fear of God',/\bfear of god\b/i],['Neighborhood',/\bneighborhood\b/i],
 ];
-const garment=/\b(?:tee|t-shirt|hoodie|sweatshirt|crewneck|sweater|jacket|coat|parka|pants|trousers|jeans|sneakers?|shoes?|trainers?|runner|cap|snapback|boot)\b/i;
+const garment=/\b(?:tee|t-shirt|hoodie|sweatshirt|crewneck|sweater|jacket|coat|parka|shorts|pants|trousers|jeans|sneakers?|shoes?|trainers?|runner|cap|snapback|boot)\b/i;
 
 export function narrativeProductName(text: string): string {
   const start=text.trim().replace(/^the\s+(?!north face\b)/i,'');

@@ -38,7 +38,7 @@ Product records are server-side; browser storage is not the source of truth. Pre
 
 Board: `sNEJUjqn3oLAfz7ZNQsY8C`. Only the six requested section subtrees were inspected. They contained 39 image rectangles and no descriptive item text: 3 pants, 18 tees, 4 caps, 7 shoes, 4 crewnecks, 3 hoodies. Hidden earlier image fills were excluded. All visible image hashes are distinct. A visual contact-sheet review confirmed that similar tees have different graphics, and similar sneakers have different colors/panel details. No obvious duplicate garment was merged.
 
-Original-byte extraction was attempted; processed image fills did not consistently return bytes. Temporary download URLs then returned empty bodies. Final assets are isolated per-item PNG exports delivered directly through Figma MCP, not section screenshots. Each file was decoded and validated locally. Garment proportions remain unchanged. Inventory photos use object-fit: contain; outfit previews share one proportional drawing scale. Visible alpha bounds exclude transparent export margins from sizing. Tee, crewneck, hoodie and pants lengths follow approximate category proportions, while accessories use proportional widths. These are visual estimates, not measured garment dimensions. Adding a layer changes placement without independently shrinking the tee. No board writes, stock images, generated garments or inferred fabric/brand claims.
+Original-byte extraction was attempted; processed image fills did not consistently return bytes. Temporary download URLs then returned empty bodies. Final assets are isolated per-item PNG exports delivered directly through Figma MCP, not section screenshots. Each file was decoded and validated locally. Garment proportions remain unchanged. Inventory photos use object-fit: contain; outfit previews share one proportional drawing scale. Visible alpha bounds exclude transparent export margins from sizing. Tee, crewneck, hoodie, pants and shorts lengths follow approximate category proportions, while accessories use proportional widths. These are visual estimates, not measured garment dimensions. Adding a layer changes placement without independently shrinking the tee. No board writes, stock images, generated garments or inferred fabric/brand claims.
 
 Names describe visible features. Fit, warmth and surface texture are estimates; material defaults to Unknown. Waterproofing and insulation default to unverified and can only be confirmed in the editor. The category list also supports outerwear uploads so weather gaps can be resolved.
 
@@ -50,7 +50,7 @@ The authenticated server reader uses no API keys, validates public destinations 
 
 ## Recommendation approach
 
-A rules-based engine samples and ranks candidate combinations. It always requires owned tee, pants and shoes; adds a cap when selected; and automatically adds a hoodie or crewneck below 18°C feels-like. It scores neutral/tonal coordination, repeated accents, silhouette, graphic balance and style direction. It reduces recent worn-item reuse and penalizes overlap across the three selected looks. Exact combinations already generated in the active session are excluded. Locks override sampling but cannot refer to missing records or occupy the same slot twice.
+A rules-based engine samples and ranks candidate combinations. It always requires an owned tee, one pair of pants or shorts, and shoes; adds a cap when selected; and automatically adds a hoodie or crewneck below 18°C feels-like. It scores neutral/tonal coordination, repeated accents, silhouette, graphic balance and style direction. It reduces recent worn-item reuse and penalizes overlap across the three selected looks. Exact combinations already generated in the active session are excluded. Locks override sampling but cannot refer to missing records or occupy the same slot twice. Pants and shorts share one slot for generation, locks and swaps while retaining distinct wardrobe categories. Shorts are favored in warm weather, with exposed-leg cautions below 18°C feels-like. Existing pants records and saved looks need no migration.
 
 Research was read before scoring rules were defined:
 
@@ -66,8 +66,8 @@ Weather uses current temperature, feels-like, precipitation, wind, humidity and 
 
 ```sh
 node node_modules/typescript/bin/tsc --noEmit
-./node_modules/esbuild/bin/esbuild tests/stylist.test.ts --bundle --platform=node --format=esm --outfile=/tmp/hyope-tests.mjs
-node --test /tmp/hyope-tests.mjs
+./node_modules/esbuild/bin/esbuild tests/*.test.ts --bundle --platform=node --format=cjs --out-extension:.js=.cjs --outdir=/tmp/hyope-tests
+node --test /tmp/hyope-tests/*.cjs
 python3 tests/api-smoke.py
 npm run build
 ```

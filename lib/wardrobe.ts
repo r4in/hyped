@@ -1,13 +1,13 @@
 import type { ProductDetails } from './product-details';
 import manifest from '../data/import-manifest.json';
-export type Category='tee'|'pants'|'shoes'|'cap'|'crewneck'|'hoodie'|'outerwear';
+export type Category='tee'|'pants'|'shorts'|'shoes'|'cap'|'crewneck'|'hoodie'|'outerwear';
 export type Item={brand?:string;productUrl?:string;productDetails?:ProductDetails;id:string;name:string;category:Category;color:string;accent:string;silhouette:string;graphic:'quiet'|'logo'|'statement';texture:string;warmth:number;waterproof:boolean;insulated:boolean;estimated:boolean;material:string;notes:string;image:string;sourceNode:string;sourceSection:string;sourceHash:string};
 export type Weather={temp:number;feels:number;rain:number;wind:number;humidity:number;source:'manual'|'live';city:string;at:string;isDay:boolean;season:string};
 export type Preferences={style:string;occasion:string;plan:string;comfort:string;time:string;cap:boolean;unit:'C'|'F'};
 export type Fit={id:string;name:string;items:string[];createdAt:string;favorite:boolean;worn:string[];style:string;weather:Weather;preferences?:Preferences};
 export type State={items:Item[];fits:Fit[];preferences:Preferences;weather:Weather;revision:number};
-export const categories:Category[]=['tee','pants','shoes','cap','crewneck','hoodie','outerwear'];
-export const categoryNames:Record<Category,string>={tee:'Tees',pants:'Pants',shoes:'Shoes',cap:'Snapbacks',crewneck:'Crewnecks',hoodie:'Hoodies',outerwear:'Outerwear'};
+export const categories:Category[]=['tee','pants','shorts','shoes','cap','crewneck','hoodie','outerwear'];
+export const categoryNames:Record<Category,string>={tee:'Tees',pants:'Pants',shorts:'Shorts',shoes:'Shoes',cap:'Snapbacks',crewneck:'Crewnecks',hoodie:'Hoodies',outerwear:'Outerwear'};
 export const colors:Record<string,string>={black:'#222323',white:'#fff',cream:'#e3decd',grey:'#858585',navy:'#192b45',blue:'#174fba',olive:'#62684d',red:'#c61730',pink:'#e3a9b7',brown:'#725342'};
 // Descriptions identify visible features only. No brand or fabric attribution is inferred.
 const details:Record<string,[string,string,string,string,Item['graphic'],string]>={
@@ -17,7 +17,7 @@ const details:Record<string,[string,string,string,string,Item['graphic'],string]
 '588:265':['Red & white low-tops','red','white','low-top','statement','paneled'],'587:227':['All-black low-tops','black','','low-top','quiet','paneled'],'587:231':['Cream tonal low-tops','cream','','low-top','quiet','paneled'],'588:284':['Cream & blue low-tops','cream','blue','low-top','statement','paneled'],'591:349':['Black & olive low-tops','black','olive','low-top','logo','paneled'],'591:356':['Pink & white low-tops','pink','white','low-top','statement','paneled'],'591:366':['Grey & cream low-tops','grey','cream','low-top','logo','paneled'],
 '585:193':['Blue script crewneck','blue','cream','relaxed','statement','smooth'],'585:208':['Grey chest-patch crewneck','grey','','relaxed','quiet','smooth'],'601:61':['Navy baseball crewneck','navy','cream','relaxed','statement','smooth'],'601:68':['Black originals crewneck','black','white','relaxed','statement','smooth'],
 '585:119':['Cream 1977 hoodie','cream','black','relaxed','statement','smooth'],'585:160':['Black outlined-letter zip hoodie','black','white','relaxed','statement','smooth'],'589:320':['Black multicolor-letter hoodie','black','red','relaxed','logo','smooth']};
-const categoryMap:Record<string,Category>={Pants:'pants',Tees:'tee',Caps:'cap',Shoes:'shoes',Crewnecks:'crewneck',Hoodies:'hoodie'};
+const categoryMap:Record<string,Category>={Pants:'pants',Shorts:'shorts',Tees:'tee',Caps:'cap',Shoes:'shoes',Crewnecks:'crewneck',Hoodies:'hoodie'};
 export const initialItems:Item[]=manifest.flatMap(s=>s.items.map(i=>{const [name,color,accent,silhouette,graphic,texture]=details[i.nodeId];const category=categoryMap[s.name];return {id:'figma-'+i.nodeId.replace(':','-'),name,category,color,accent,silhouette,graphic,texture,warmth:['hoodie','crewneck'].includes(category)?2:1,waterproof:false,insulated:false,estimated:true,material:'Unknown',notes:'Fit, texture and warmth are visual estimates. Technical protection is unverified.',image:'/wardrobe/'+i.file,sourceNode:i.nodeId,sourceSection:s.sectionId,sourceHash:i.hash};}));
 export const defaultPreferences:Preferences={style:'Clean minimal',occasion:'Everyday',plan:'Mixed',comfort:'Neutral',time:'Now',cap:true,unit:'C'};
 export const defaultWeather:Weather={temp:18,feels:18,rain:0,wind:10,humidity:50,source:'manual',city:'Toronto',at:'',isDay:true,season:'Autumn'};
